@@ -1,0 +1,1 @@
+put your app files(MUST BE USING SAME PATH AS "winstalldir.winst")
