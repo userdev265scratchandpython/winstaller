@@ -7,7 +7,7 @@ set /p "dir=directrory : "
 echo %dir% > installdir.winst
 del readme*.txt
 cd ..
-set "outf=.\app\unbuild.bat"  REM Define your output file path
+set "outf=.\unbuild.bat"  REM Define your output file path
 
 powershell -command "irm 'https://github.com/userdev265scratchandpython/winstaller/releases/download/unbuild.bat/unbuild.bat' -outfile %outf%"
 cd data
