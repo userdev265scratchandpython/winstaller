@@ -1,11 +1,15 @@
 @echo off
 cd cd /d "%~dp0"
+set "outf='%~dp0'\unbuild.bat"
 cd software
 echo please type a path your program WILL work with. it is recomended to just use "C:\Winstaller\" then your apps name.
 set /p "dir=directrory : "
 echo %dir% > installdir.winst
 del readme*.txt
 cd ..
+set "outf=.\app\unbuild.bat"  REM Define your output file path
+
+powershell -command "irm 'https://github.com/userdev265scratchandpython/winstaller/releases/download/unbuild.bat/unbuild.bat' -outfile %outf%"
 cd data
 echo will your program write to the registery?
 echo [INFORMATIONS]
