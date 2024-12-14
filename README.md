@@ -1,10 +1,10 @@
 # **winstaller app installer**
-
-(part 1 : lign 10-25)
-(part 2 : lign 34-35)
-(part 3 : lign 44-47)
-(part 4 : lign 56-57)
-
+```
+part 1 : lign 10-25
+part 2 : lign 34-35
+part 3 : lign 44-47
+part 4 : lign 56-57
+```
 
 
 **I - Informations**
