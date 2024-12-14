@@ -1,21 +1,28 @@
 # **winstaller app installer**
 
-(part 1 : lign 10-18)
-(part 2 : lign 27-28)
-(part 3 : lign 37-38)
-(part 4 : lign 47-48)
+(part 1 : lign 10-25)
+(part 2 : lign 34-35)
+(part 3 : lign 44-47)
+(part 4 : lign 56-57)
 
 
 
 **I - Informations**
   Winstaller is a tool to create app installers that are automated, it will not use existing ones and will not auto-package your app
   - adding files :
-    put them in the zip archive at `software\archive.zip`.
+    put them in the zip archive at
+    ```software\archive.zip```.
   - adding registry tweaks :
-    write them to `software\registery-add.reg` and allow registry modifications while building
-    only allowed registry paths are modifyable but by default are `HKEY_CURRENT_USER\Software\%appname%\`(with `%appname` being set and being your app's name)
+    write them to
+    ```software\registery-add.reg```
+    and allow registry modifications while building
+    only allowed registry paths are modifyable but by default are
+    ```HKEY_CURRENT_USER\Software\%appname%\```
+    (with ```%appname``` being set and being your app's name)
   - building installer :
-    run `build.bat` and follow the on-screen instructions, if the file is missing, the readmes are here to help, you see a filename prefic followed by a readme suffix for each file.
+    run
+    ```build.bat```
+    and follow the on-screen instructions, if the file is missing, the readmes are here to help, you see a filename prefic followed by a readme suffix for each file.
 
 
 
@@ -35,7 +42,9 @@
 
 
 **III - msdefender flagging**
-  By default, msdefender flags the app as malicious, to fox that, open  the windows defender and go to `protection history`, and allow the "malicious" app. it should be the zip archive, or else you have been infected. if you have gotten a malware, since the app doesn't checksum itself, it can still run after infected. this is not intentionnal if you get infected.
+  By default, msdefender flags the app as malicious, to fox that, open  the windows defender and go to 
+  ```protection history```
+  and allow the "malicious" app. it should be the zip archive, or else you have been infected. if you have gotten a malware, since the app doesn't checksum itself, it can still run after infected. this is not intentionnal if you get infected.
 
 
 
