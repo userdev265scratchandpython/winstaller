@@ -5,7 +5,7 @@ part 2 : lign 34-35
 part 3 : lign 44-47
 part 4 : lign 56-57
 ```
-
+mistakes are in the app, this is not fully wanned but please do with it
 
 **I - Informations**
   Winstaller is a tool to create app installers that are automated, it will not use existing ones and will not auto-package your app
@@ -42,7 +42,7 @@ part 4 : lign 56-57
 
 
 **III - msdefender flagging**
-  By default, msdefender flags the app as malicious, to fox that, open  the windows defender and go to 
+  By default, msdefender flags the app as malicious, to fix that, open  the windows defender and go to 
   ```protection history```
   and allow the "malicious" app. it should be the zip archive, or else you have been infected. if you have gotten a malware, since the app doesn't checksum itself, it can still run after infected. this is not intentionnal if you get infected.
 
