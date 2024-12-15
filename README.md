@@ -60,3 +60,5 @@ mistakes are in the app, this is not fully wanned but please do with it
 
 
 Have a nice day. Your installer should work by now!
+
+[Q&A](https://github.com/userdev265scratchandpython/winstaller/raw/refs/heads/main/README-2.md)
