@@ -1,1 +1,0 @@
-path to program, for quality and easy uninstallability, must contain "C:\Winstaller\<app name>"
