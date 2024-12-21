@@ -9,7 +9,6 @@ del readme*.txt
 cd ..
 set "outf=.\unbuild.bat"  REM Define your output file path
 
-powershell -command "irm 'https://github.com/userdev265scratchandpython/winstaller/releases/download/unbuild.bat/unbuild.bat' -outfile %outf%"
 cd data
 echo will your program write to the registery?
 echo [INFORMATIONS]
