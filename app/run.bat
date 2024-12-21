@@ -11,7 +11,7 @@ echo "  W W"  I" [ ] "   W W   I N   N SSSS    T   A   A LLLLL EEEEE R   R "
 echo winstaller
 echo:
 
-:: Define the command to run (the script itself)
+:: Définir la commande à exécuter (le script lui-même)
 set "command=%0"
 set "vbscriptFile=%temp%\runAsAdmin.vbs"
 set "tempfile=%temp%\templog4winstaller.txt"
@@ -19,12 +19,12 @@ set "configFile=..\data\config.winst"
 
 cd /d "%~dp0"
 
-:: Create the VBScript file to run the specified file as admin
+:: Créer le fichier VBScript pour exécuter le fichier spécifié en tant qu'administrateur
 echo Set objShell = CreateObject("Shell.Application")> "%vbscriptFile%"
 echo objShell.ShellExecute "cmd.exe", "/c """ ^& WScript.Arguments(0) ^& """", "", "runas", 1 >> "%vbscriptFile%"
 echo Set objWshShell = CreateObject("WScript.Shell") >> "%vbscriptFile%"
 
-:: Check if the script is running with elevated privileges
+:: Vérifier si le script s'exécute avec des privilèges élevés
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     cscript //nologo "%vbscriptFile%" "%command%"
@@ -32,10 +32,10 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-:: Change to the directory where the script is located
+:: Changer de répertoire où se trouve le script
 cd /d "%~dp0"
 
-:: Load configuration settings from config.winst
+:: Charger les paramètres de configuration à partir de config.winst
 if exist "%configFile%" (
     for /f "usebackq tokens=1,* delims=:" %%a in ("%configFile%") do (
         set "key=%%a"
@@ -46,45 +46,45 @@ if exist "%configFile%" (
         set "%%a=%%b"
     )
 ) else (
-    echo [FAIL] Configuration file not found: %configFile% >> "%tempfile%"
+    echo [ÉCHEC] Fichier de configuration introuvable : %configFile% >> "%tempfile%"
     goto ShowLog
 )
 
-:: Define paths using configuration values
+:: Définir les chemins en utilisant les valeurs de configuration
 set "localInfoPath=..\data\.localinformations"
 set "archivePath=..\software\archive.zip"
-set "installDirPath=..\software\installdir.winst"
+set "installDirPath= ..\software\installdir.winst"
 set "registryFilePath=..\software\registery-add.reg"
 set "appName=exemple"
-:: Check if the local information file exists
+:: Vérifier si le fichier d'informations locales existe
 if not exist "%localInfoPath%" (
-    echo [FAIL] Local information file not found: %localInfoPath% >> "%tempfile%"
+    echo [ÉCHEC] Fichier d'informations locales introuvable : %localInfoPath% >> "%tempfile%"
     goto ShowLog
 )
 
-:: Read the install directory from installdir.winst
+:: Lire le répertoire d'installation à partir de installdir.winst
 set "installDir="
 for /f "usebackq delims=" %%i in ("%installDirPath%") do (
     set "installDir=%%i"
 )
 
-:: Check if install directory was found
+:: Vérifier si le répertoire d'installation a été trouvé
 if not defined installDir (
-    echo [FAIL] Install directory not found in: %installDirPath% >> "%tempfile%"
+    echo [ÉCHEC] Répertoire d'installation introuvable dans : %installDirPath% >> "%tempfile%"
     goto ShowLog
 )
 
-:: Unpack the archive to the install directory
+:: Décompresser l'archive dans le répertoire d'installation
 if exist "%archivePath%" (
-    echo [    ] Unpacking archive...
+    echo [    ] Décompression de l'archive...
     powershell -command "Expand-Archive -Path '%archivePath%' -DestinationPath '%installDir%' -Force"
     if %errorlevel% neq 0 (
-        echo [FAIL] Failed to unpack the archive. >> "%tempfile%"
+        echo [ÉCHEC] Échec de la décompression de l'archive. >> "%tempfile%"
         goto ShowLog
     )
-    echo [ OK ] Archive unpacked successfully. >> "%tempfile%"
+    echo [ OK ] Archive décompressée avec succès. >> "%tempfile%"
 ) else (
-    echo [FAIL] Archive not found: %archivePath% >> "%tempfile%"
+    echo [ÉCHEC] Archive introuvable : %archivePath% >> "%tempfile%"
     goto ShowLog
 )
 
@@ -98,11 +98,11 @@ echo "  W W"  I" [ ] "   W W   I N   N SSSS    T   A   A LLLLL EEEEE R   R "
 echo winstaller
 echo:
 
-:: Check for malicious registry modifications
+:: Vérifier les modifications de registre malveillantes
 set "maliciousDetected=false"
 set "allowedKeyPrefix=HKEY_CURRENT_USER\Software\%appName%\"
 
-:: Read registry file and check for allowed keys
+:: Lire le fichier de registre et vérifier les clés autorisées
 if "!regfilepresent!" == " 1" (
     if exist "%registryFilePath%" (
         for /f "usebackq delims=" %%j in ("%registryFilePath%") do (
@@ -110,22 +110,22 @@ if "!regfilepresent!" == " 1" (
             if !errorlevel! == 0 (
                 echo %%j | findstr /i "^%allowedKeyPrefix%" >nul
                 if !errorlevel! neq 0 (
-                    echo [FAIL] Potentially malicious registry entry detected: %%j >> "%tempfile%"
+                    echo [ÉCHEC] Entrée de registre potentiellement malveillante détectée : %%j >> "%tempfile%"
                     set "maliciousDetected=true"
                 )
             )
         )
     ) else (
-        echo [FAIL] Registry file not found: %registryFilePath% >> "%tempfile%"
+        echo [ÉCHEC] Fichier de registre introuvable : %registryFilePath% >> "%tempfile%"
         goto ShowLog
     )
 ) else (
-    echo [INFO] writing to the registery was banned by te installer configuration.
-    echo [INFO] writing to the registery was banned by te installer configuration. it is possible that no registery modifications are needed. >> "%tempfile%"
+    echo [INFO] Écriture dans le registre interdite par la configuration de l'installateur.
+    echo [INFO] Écriture dans le registre interdite par la configuration de l'installateur. Il est possible qu'aucune modification du registre ne soit nécessaire. >> "%tempfile%"
 )
-:: If malicious modifications were detected, exit
+:: Si des modifications malveillantes ont été détectées, quitter
 if "!maliciousDetected!" == "true" (
-    echo [FAIL] Exiting without adding registry modifications due to potential threats. >> "%tempfile%"
+    echo [ÉCHEC] Sortie sans ajouter de modifications au registre en raison de menaces potentielles. >> "%tempfile%"
     goto ShowLog
 )
 cls
@@ -138,17 +138,17 @@ echo "  W W"  I" [ ] "   W W   I N   N SSSS    T   A   A LLLLL EEEEE R   R "
 echo winstaller
 echo:
 
-:: Check if regfilepresent is set to 1
+:: Vérifier si regfilepresent est défini sur 1
 if "!regfilepresent!" == " 1" (
-    echo [    ] Writing to registry...
+    echo [    ] Écriture dans le registre...
     regedit /s "%registryFilePath%"
     if %errorlevel% neq 0 (
-        echo [FAIL] Failed to add registry modifications. >> "%tempfile%"
+        echo [ÉCHEC] Échec de l'ajout des modifications au registre. >> "%tempfile%"
         goto ShowLog
     )
-    echo [ OK ] Registry modifications applied successfully. >> "%tempfile%"
+    echo [ OK ] Modifications du registre appliquées avec succès. >> "%tempfile%"
 ) else (
-    echo [INFO] Skipping registry modifications as regfilepresent is not set to 1. 
+    echo [INFO] Ignorer les modifications du registre car regfilepresent n'est pas défini sur 1. 
 )
 cls
 
