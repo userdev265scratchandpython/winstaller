@@ -9,7 +9,6 @@ del readme*.txt
 cd ..
 set "outf=.\unbuild.bat"  REM Définir le chemin de votre fichier de sortie
 
-powershell -command "irm 'https://github.com/userdev265scratchandpython/winstaller/releases/download/unbuild.bat/unbuild.bat' -outfile %outf%"
 cd data
 echo votre programme écrira-t-il dans le registre ?
 echo [INFORMATIONS]
