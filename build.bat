@@ -2,26 +2,26 @@
 cd cd /d "%~dp0"
 set "outf='%~dp0'\unbuild.bat"
 cd software
-echo please type a path your program WILL work with. it is recomended to just use "C:\Winstaller\" then your apps name.
-set /p "dir=directrory : "
+echo veuillez taper un chemin avec lequel votre programme FONCTIONNERA. il est recommandé d'utiliser simplement "C:\Winstaller\" puis le nom de votre application.
+set /p "dir=répertoire : "
 echo %dir% > installdir.winst
 del readme*.txt
 cd ..
-set "outf=.\unbuild.bat"  REM Define your output file path
+set "outf=.\unbuild.bat"  REM Définir le chemin de votre fichier de sortie
 
 powershell -command "irm 'https://github.com/userdev265scratchandpython/winstaller/releases/download/unbuild.bat/unbuild.bat' -outfile %outf%"
 cd data
-echo will your program write to the registery?
+echo votre programme écrira-t-il dans le registre ?
 echo [INFORMATIONS]
 type "readme(config.winst).txt"
 echo [script]
 :wregp
-set /p "wreg=[Y/N]"
-if "%wreg%" == "Y" (
+set /p "wreg=[O/N]"
+if "%wreg%" == "O" (
 	ren "config1.winst" "config.winst"
 	del "config0.winst"
 	goto finish
-) else if "%wreg%" == "y" (
+) else if "%wreg%" == "o" (
 	ren "config1.winst" "config.winst"
 	del "config0.winst"
 	goto finish
@@ -34,7 +34,7 @@ if "%wreg%" == "Y" (
 	del "config1.winst"
 	goto finish
 ) else (
-	echo input a valid value
+	echo saisissez une valeur valide
 	goto wregp
 )
 
